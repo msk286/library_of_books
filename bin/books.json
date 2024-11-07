@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Title of book",
+    "author": "Mo",
+    "year": 2021,
+    "isAvailable": true
+  },
+  {
+    "id": 2,
+    "title": "The second Book for this year",
+    "author": "Mo",
+    "year": 2024,
+    "isAvailable": true
+  }
+]
