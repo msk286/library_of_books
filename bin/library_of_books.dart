@@ -1,8 +1,11 @@
 import 'dart:io';
 
-import 'models/library.dart';
+import 'services/library_service.dart';
+import 'services/storage.dart';
 
-void main() {
+void main() async {
+  await Storage.init();
+
   Library lib = Library();
 
   bool isWorking = true;

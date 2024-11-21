@@ -5,6 +5,10 @@ class Book {
   int year;
   bool isAvailable;
 
+  String getStorageKey() {
+    return 'book_id_$id';
+  }
+
   Book({
     required this.id,
     required this.title,

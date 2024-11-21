@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'book.dart';
+import '../models/book.dart';
+import '../services/storage.dart';
 
 class Library {
   List<Book> _bookList = [];
-  static const String _path = 'bin/books.json';
 
   Library() {
     _loadBooks();
@@ -55,19 +52,20 @@ class Library {
     if (book != null) {
       book.isAvailable = status;
       print(status ? 'Book returned successfully' : 'Book checked out successfully');
+      Storage().updateData(book);
       return;
     }
     print('Book not found 🥺');
   }
 
   saveBooks() {
-    List<Map<String, dynamic>> map = _bookList.map((Book book) => book.toJson()).toList();
-    String jsonEncode2 = jsonEncode(map);
-    File(_path).writeAsStringSync(jsonEncode2);
+    for (Book book in _bookList) {
+      Storage().saveData(book.getStorageKey(), book.toJson());
+    }
   }
 
   void _loadBooks() {
-    List<dynamic> jsonData = jsonDecode(File(_path).readAsStringSync());
-    _bookList = jsonData.map((item) => Book.fromJson(item)).toList();
+    List<Map> allData = Storage().getAllData();
+    _bookList = allData.map((Map item) => Book.fromJson(item.cast())).toList();
   }
 }
